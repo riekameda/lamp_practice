@@ -1,9 +1,10 @@
 <?php 
 require_once 'functions.php';
 require_once 'db.php';
-require_once 'history.php';
-require_once 'history_detail.php';
+require_once MODEL_PATH . 'history.php';
+require_once  MODEL_PATH . 'history_detail.php';
 
+// ユーザーのカートの中身をデータベースから取り出したい
 function get_user_carts($db, $user_id){
   $sql = "
     SELECT
@@ -134,6 +135,7 @@ function purchase_carts($db, $carts){
     }
   }
   // DBに購入履歴を登録する処理
+  // $user_id = $carts[0]['user_id'];
   insert_user_history($db, $carts[0]['user_id']);
   $history_id = $db->lastInsertId();
 
@@ -147,11 +149,11 @@ function purchase_carts($db, $carts){
       $cart['amount']
     );
   }
-  
+  // 実引数
   delete_user_carts($db, $carts[0]['user_id']);
 
 }
-
+// 仮引数
 function delete_user_carts($db, $user_id){
   $sql = "
     DELETE FROM
