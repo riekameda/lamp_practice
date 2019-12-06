@@ -10,6 +10,7 @@
   <h1>ご購入ありがとうございました！</h1>
 
   <div class="container">
+  <h1>購入履歴</h1>
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
     <?php if(count($carts) > 0){ ?>
