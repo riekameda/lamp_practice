@@ -49,5 +49,4 @@ function get_history ($db, $history_id){
     );
 
     return fetch_query($db, $sql, $params);
-
 }
