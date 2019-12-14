@@ -125,6 +125,8 @@ function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
   }
+  $db->beginTransaction();
+
   foreach($carts as $cart){
     if(update_item_stock(
         $db, 
@@ -151,7 +153,13 @@ function purchase_carts($db, $carts){
   }
   // 実引数
   delete_user_carts($db, $carts[0]['user_id']);
-
+  if(has_error() === true){
+    set_error('購入処理に失敗しました。');
+    $db->rollback();
+    return false;
+  }
+  $db->commit();
+  return true;
 }
 // 仮引数
 function delete_user_carts($db, $user_id){
